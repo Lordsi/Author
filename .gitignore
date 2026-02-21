@@ -1,0 +1,11 @@
+# Environment (Stripe, Supabase secrets)
+.env
+.env.local
+.env.*.local
+.dev.vars
+
+# Dependencies
+node_modules/
+
+# Netlify
+.netlify/

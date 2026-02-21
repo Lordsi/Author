@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Books by Edwin C. Polela — Queens &amp; Gods: The Testaments of Queens. Browse and order signed copies.">
+  <meta name="theme-color" content="#1a1814">
+  <title>Books | Edwin C. Polela</title>
+  <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <header style="position: sticky; top: 0; z-index: 50; border-bottom: 1px solid rgba(224,224,224,0.1); background: rgba(18,18,18,0.95);">
+    <nav aria-label="Main navigation" style="max-width: 80rem; margin: 0 auto; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+      <a href="index.html" style="font-size: 1.25rem; font-weight: 700;">Edwin C. Polela</a>
+      <div class="desktop-links" style="display: flex; gap: 2rem;">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="author.html">Meet the Author</a>
+        <a href="blog.html">Blog</a>
+        <a href="order.html">Order Print</a>
+        <a href="login.html">Log in</a>
+      </div>
+      <details class="mobile-menu" style="display: none;">
+        <summary class="mobile-trigger" style="padding: 0.5rem; cursor: pointer;" aria-label="Open menu">☰ Menu</summary>
+        <div class="mobile-dropdown">
+          <a href="index.html" style="display: block; padding: 0.5rem;">Home</a>
+          <a href="books.html" style="display: block; padding: 0.5rem;">Books</a>
+          <a href="author.html" style="display: block; padding: 0.5rem;">Meet the Author</a>
+          <a href="blog.html" style="display: block; padding: 0.5rem;">Blog</a>
+          <a href="order.html" style="display: block; padding: 0.5rem;">Order Print</a>
+          <a href="login.html" style="display: block; padding: 0.5rem;">Log in</a>
+        </div>
+      </details>
+    </nav>
+  </header>
+
+  <main id="main-content" style="max-width: 80rem; margin: 0 auto; padding: 3rem 1.5rem;">
+    <h1 style="font-size: 1.875rem; font-weight: 700; margin-bottom: 2rem;">Books</h1>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2rem;">
+      <a href="book-info.html" style="display: block; border: 1px solid rgba(224,224,224,0.1); border-radius: 0.5rem; overflow: hidden; transition: border-color 0.2s, background 0.2s;" class="news-card">
+        <div style="aspect-ratio: 2/3; background: rgba(224,224,224,0.05); overflow: hidden;">
+          <img src="src/book.png" alt="Queens &amp; Gods" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="padding: 1rem;">
+          <h2 style="margin: 0; font-size: 1.125rem;">Queens &amp; Gods</h2>
+          <p style="margin: 0.25rem 0 0; font-size: 0.875rem; color: rgba(224,224,224,0.7);">The Testaments of Queens · Edwin C. Polela</p>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <footer style="border-top: 1px solid rgba(224,224,224,0.1); padding: 2rem 1.5rem; margin-top: auto;">
+    <div style="max-width: 80rem; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem;">
+      <p style="margin: 0; font-size: 0.875rem; color: rgba(224,224,224,0.7);">© 2026 Edwin C. Polela. All rights reserved.</p>
+      <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+        <a href="index.html" style="font-size: 0.875rem; color: rgba(224,224,224,0.7);">Home</a>
+        <a href="books.html" style="font-size: 0.875rem; color: rgba(224,224,224,0.7);">Books</a>
+        <a href="author.html" style="font-size: 0.875rem; color: rgba(224,224,224,0.7);">Meet the Author</a>
+        <a href="blog.html" style="font-size: 0.875rem; color: rgba(224,224,224,0.7);">Blog</a>
+        <a href="order.html" style="font-size: 0.875rem; color: rgba(224,224,224,0.7);">Order Print</a>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    @media (max-width: 767px) {
+      .desktop-links { display: none !important; }
+      .mobile-menu { display: block !important; }
+      .mobile-trigger { display: inline-flex !important; }
+    }
+  </style>
+</body>
+</html>
