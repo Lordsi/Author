@@ -4,7 +4,7 @@
  * For local development, use your Netlify/Vercel dev URL or a local server.
  */
 window.AUTH_CONFIG = {
-  supabaseUrl: 'https://tvejzgdnbrvkceljgvqy.supabase.co',
-  supabaseAnonKey: 'sb_publishable_-JX6uQMTz_Ni73qth1wsEA_5uagrfyC',
+  supabaseUrl: 'https://eljfdymtyerlogzcxalc.supabase.co',
+  supabaseAnonKey: 'sb_publishable_bZ9q8_6bvYNicZsl8NPGsQ_m_-NTBlI',
   apiBaseUrl: '', // Cloudflare Pages Functions at /create-checkout-session, /verify-session, /stripe-webhook
 };
