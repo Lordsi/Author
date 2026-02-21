@@ -6,7 +6,7 @@ This guide explains how to configure the purchase-gated account system for the Q
 
 - **Supabase** — User authentication and `purchases` table
 - **Stripe** — Payments (cards + PayPal via Stripe Checkout)
-- **Cloudflare Pages Functions** — Checkout session creation, webhook, session verification
+- **Cloudflare Pages Functions** — Checkout session creation, webhook, session verification, secured account creation, and reader route protection
 
 ## 1. Supabase Setup
 
@@ -80,8 +80,9 @@ For Cloudflare Pages, `apiBaseUrl` can stay empty. The functions are served at t
 1. User visits **Purchase** → pays via Stripe (card or PayPal).
 2. Stripe redirects to **Create Account** with `session_id`.
 3. `verify-session` confirms payment and returns the customer email.
-4. User sets a password and creates their Supabase account.
-5. User can **Log in** and read all excerpts.
+4. User sets a password; backend validates Stripe session and creates the Supabase account server-side.
+5. Reader routes are enforced server-side (`/reader/*`) and require both authentication and a completed purchase.
+6. User can **Log in** and read all excerpts.
 
 ## 6. Files
 
@@ -97,8 +98,10 @@ For Cloudflare Pages, `apiBaseUrl` can stay empty. The functions are served at t
 | `js/login.js` | Login logic |
 | `js/reader-auth.js` | Protects reader pages |
 | `functions/create-checkout-session.js` | Creates Stripe session |
+| `functions/create-account.js` | Validates paid session and creates Supabase user |
 | `functions/stripe-webhook.js` | Records purchases |
 | `functions/verify-session.js` | Verifies payment, returns email |
+| `functions/reader/_middleware.js` | Protects `/reader/*` on the server |
 
 ## 7. Testing
 

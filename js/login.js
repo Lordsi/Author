@@ -5,6 +5,21 @@
   const supabase = window.supabase.createClient(config.supabaseUrl, config.supabaseAnonKey);
   const form = document.getElementById('login-form');
   const errEl = document.getElementById('login-error');
+  const FALLBACK_RETURN_TO = '/book-info.html';
+
+  function getSafeReturnTo() {
+    const raw = new URLSearchParams(window.location.search).get('returnTo');
+    if (!raw) return FALLBACK_RETURN_TO;
+
+    try {
+      const parsed = new URL(raw, window.location.origin);
+      if (parsed.origin !== window.location.origin) return FALLBACK_RETURN_TO;
+      if (parsed.pathname === '/login.html') return FALLBACK_RETURN_TO;
+      return parsed.pathname + parsed.search + parsed.hash;
+    } catch {
+      return FALLBACK_RETURN_TO;
+    }
+  }
 
   function showError(msg) {
     if (errEl) {
@@ -20,7 +35,10 @@
   // Redirect if already logged in
   supabase.auth.getSession().then(function ({ data: { session } }) {
     if (session) {
-      const returnTo = new URLSearchParams(window.location.search).get('returnTo') || 'book-info.html';
+      if (window.auth && typeof window.auth.syncSession === 'function') {
+        window.auth.syncSession(session);
+      }
+      const returnTo = getSafeReturnTo();
       window.location.href = returnTo;
     }
   });
@@ -50,7 +68,11 @@
           return;
         }
 
-        const returnTo = new URLSearchParams(window.location.search).get('returnTo') || 'book-info.html';
+        if (window.auth && typeof window.auth.syncSession === 'function') {
+          window.auth.syncSession(data.session);
+        }
+
+        const returnTo = getSafeReturnTo();
         window.location.href = returnTo;
       } catch (err) {
         showError('Something went wrong. Please try again.');

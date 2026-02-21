@@ -4,10 +4,16 @@
   "description": "Queens & Gods — reader site with purchase-gated access",
   "private": true,
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "dev": "wrangler pages dev . --project-name=queens-gods",
+    "deploy": "wrangler pages deploy . --project-name=queens-gods",
+    "test": "node --test"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
     "stripe": "^14.10.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "wrangler": "^4.67.0"
+  }
 }
