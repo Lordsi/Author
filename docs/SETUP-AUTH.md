@@ -11,7 +11,17 @@ This guide explains how to configure the purchase-gated account system for the Q
 ## 1. Supabase Setup
 
 1. Create a project at [supabase.com](https://supabase.com).
-2. In **SQL Editor**, run:
+2. Run the included migration (recommended):
+
+```bash
+npx supabase db push
+```
+
+Migration file:
+
+- `supabase/migrations/20260221_create_purchases_table.sql`
+
+Or in **SQL Editor**, run:
 
 ```sql
 create table purchases (
