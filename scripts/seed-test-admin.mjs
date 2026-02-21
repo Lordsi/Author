@@ -20,6 +20,11 @@ function isExistingUserError(message) {
   return /already (?:registered|exists|been registered)|user already/i.test(message);
 }
 
+function isMissingPurchasesTableError(message) {
+  if (!message) return false;
+  return /public\.purchases|table .*purchases.*schema cache|relation .*purchases/i.test(message);
+}
+
 async function findUserByEmail(supabase, email) {
   let page = 1;
   const perPage = 200;
@@ -100,7 +105,15 @@ async function main() {
     { onConflict: 'email' }
   );
 
-  if (purchaseError) throw purchaseError;
+  if (purchaseError) {
+    if (isMissingPurchasesTableError(purchaseError.message)) {
+      console.warn(
+        "Warning: 'purchases' table is missing. Test admin was created/updated, but purchase row was not written."
+      );
+    } else {
+      throw purchaseError;
+    }
+  }
 
   console.log('Test admin account is ready.');
   if (user?.id) console.log(`User ID: ${user.id}`);

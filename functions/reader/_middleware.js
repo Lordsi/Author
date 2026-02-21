@@ -38,6 +38,13 @@ function redirectToPurchase(request) {
   return Response.redirect(new URL('/purchase.html', request.url).toString(), 302);
 }
 
+function isAdminUser(user) {
+  if (!user) return false;
+  const metadata = user.user_metadata || {};
+  const appMetadata = user.app_metadata || {};
+  return metadata.role === 'admin' || metadata.is_test_admin === true || appMetadata.role === 'admin';
+}
+
 export async function onRequest(context) {
   const { request, env, next } = context;
   const supabaseUrl = env.SUPABASE_URL;
@@ -67,6 +74,10 @@ export async function onRequest(context) {
       console.warn('Reader middleware auth lookup failed:', userError.message);
     }
     return redirectToLogin(request);
+  }
+
+  if (isAdminUser(user)) {
+    return next();
   }
 
   const email = user.email.toLowerCase();
