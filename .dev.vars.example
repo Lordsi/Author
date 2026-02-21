@@ -6,3 +6,5 @@ STRIPE_PRICE_ID=price_xxxxx
 STRIPE_WEBHOOK_SECRET=whsec_xxxxx
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+TEST_ADMIN_EMAIL=admin.test@queensgods.local
+TEST_ADMIN_PASSWORD=AdminTest#2026

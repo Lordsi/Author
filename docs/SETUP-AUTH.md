@@ -110,3 +110,23 @@ For Cloudflare Pages, `apiBaseUrl` can stay empty. The functions are served at t
 3. For webhooks locally, use [Stripe CLI](https://stripe.com/docs/stripe-cli):  
    `stripe listen --forward-to http://localhost:8788/stripe-webhook`  
    (adjust port to match your local Cloudflare Pages dev server)
+
+## 8. Seed test admin login
+
+To set a reusable test admin login, run:
+
+```bash
+SUPABASE_URL=https://YOUR_PROJECT.supabase.co \
+SUPABASE_SERVICE_ROLE_KEY=YOUR_SERVICE_ROLE_KEY \
+npm run seed:test-admin
+```
+
+Default test admin credentials:
+
+- **Email:** `admin.test@queensgods.local`
+- **Password:** `AdminTest#2026`
+
+You can override these with environment variables:
+
+- `TEST_ADMIN_EMAIL`
+- `TEST_ADMIN_PASSWORD`

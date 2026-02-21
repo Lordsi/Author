@@ -65,3 +65,18 @@ python -m http.server 8000
 Then open **http://localhost:8000**.
 
 For the purchase-gated reader, deploy to Cloudflare Pages and configure Supabase + Stripe (see `docs/SETUP-AUTH.md`). Local dev with functions: `npm install` then `npx wrangler pages dev`.
+
+### Test admin login (development)
+
+Seed a reusable test admin account with:
+
+```bash
+SUPABASE_URL=https://YOUR_PROJECT.supabase.co \
+SUPABASE_SERVICE_ROLE_KEY=YOUR_SERVICE_ROLE_KEY \
+npm run seed:test-admin
+```
+
+Default credentials:
+
+- Email: `admin.test@queensgods.local`
+- Password: `AdminTest#2026`
