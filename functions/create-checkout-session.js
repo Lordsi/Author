@@ -13,16 +13,11 @@ export async function onRequestPost(context) {
     );
   }
 
-  let body = {};
-  try {
-    body = await request.json();
-  } catch {
-    // ignore
-  }
-
-  const baseUrl = request.headers.get('origin') || new URL(request.url).origin;
-  const successUrl = body.successUrl || baseUrl + '/create-account.html?session_id={CHECKOUT_SESSION_ID}';
-  const cancelUrl = body.cancelUrl || baseUrl + '/purchase.html';
+  const origin = new URL(request.url).origin;
+  const successUrlObj = new URL('/create-account.html', origin);
+  successUrlObj.searchParams.set('session_id', '{CHECKOUT_SESSION_ID}');
+  const successUrl = successUrlObj.toString();
+  const cancelUrl = new URL('/purchase.html', origin).toString();
 
   const stripe = new Stripe(stripeSecretKey);
 

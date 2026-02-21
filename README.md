@@ -6,7 +6,7 @@ A **static author website** for **Queens & Gods: The Testaments of Queens** by E
 
 ## Website description
 
-The site promotes the book and the author: it showcases the cover, provides short excerpts (reader pages), a “From the Journal” blog, author bio, and a way to request signed physical copies. The design is warm and literary (charcoal, cream, gold) with subtle transitioning gradients and a mobile-friendly layout. It is built for accessibility (skip link, focus styles, reduced motion, ARIA, form labels) and works without JavaScript.
+The site promotes the book and the author: it showcases the cover, provides short excerpts (reader pages), a “From the Journal” blog, author bio, and a way to request signed physical copies. The design is warm and literary (charcoal, cream, gold) with subtle transitioning gradients and a mobile-friendly layout. It is built for accessibility (skip link, focus styles, reduced motion, ARIA, form labels). Marketing pages work without JavaScript, while login/purchase/account flows require JavaScript.
 
 ---
 
@@ -30,7 +30,7 @@ The site promotes the book and the author: it showcases the cover, provides shor
 - **Navigation:** Sticky header with Home, Books, Meet the Author, Blog, Order Print, Log in; on mobile, a dropdown menu (no header stretch).
 - **Accessibility:** Skip-to-main link, visible focus styles, `prefers-reduced-motion` support, meta descriptions, theme-color, ARIA on nav and blog overlays, form labels associated with inputs.
 - **Blog overlays:** On the Blog page, each post card opens a full-screen blurred overlay (URL hash); overlay has `role="dialog"` and `aria-labelledby` for screen readers.
-- **Forms:** Newsletter (home) and order form (order page) are present; both use `action="#"` and are not wired to a backend — ready for you to connect to a server or form service.
+- **Forms:** Newsletter (home) is currently placeholder-only; the order form (order page) submits via `POST` to a Cloudflare Function endpoint (`/order-request`).
 - **Favicon:** Full set in `favicon/` (ico, PNG sizes, apple-touch-icon, Android Chrome, `site.webmanifest`) and linked from all main pages.
 - **Responsive:** Mobile-first; touch-friendly targets; dropdown menu on small screens; no `background-attachment: fixed` on mobile.
 
@@ -39,7 +39,7 @@ The site promotes the book and the author: it showcases the cover, provides shor
 ## Integrations
 
 - **Google Fonts:** Inter and Lora loaded via `@import` in `css/styles.css`.
-- **Auth & payments:** Supabase (auth + purchases table), Stripe (cards + PayPal), Netlify Functions. See `docs/SETUP-AUTH.md` for setup.
+- **Auth & payments:** Supabase (auth + purchases table), Stripe (cards + PayPal), Cloudflare Pages Functions. See `docs/SETUP-AUTH.md` for setup.
 
 ---
 
@@ -65,3 +65,18 @@ python -m http.server 8000
 Then open **http://localhost:8000**.
 
 For the purchase-gated reader, deploy to Cloudflare Pages and configure Supabase + Stripe (see `docs/SETUP-AUTH.md`). Local dev with functions: `npm install` then `npx wrangler pages dev`.
+
+### Test admin login (development)
+
+Seed a reusable test admin account with:
+
+```bash
+SUPABASE_URL=https://YOUR_PROJECT.supabase.co \
+SUPABASE_SERVICE_ROLE_KEY=YOUR_SERVICE_ROLE_KEY \
+npm run seed:test-admin
+```
+
+Default credentials:
+
+- Email: `admin.test@queensgods.local`
+- Password: `AdminTest#2026`

@@ -50,25 +50,25 @@
     if (themeSelect) {
       themeSelect.value = theme;
       themeSelect.addEventListener('change', function () {
-        var v = themeSelect.value;
-        apply(body, v, size, font);
-        save(v, size, font);
+        theme = themeSelect.value;
+        apply(body, theme, size, font);
+        save(theme, size, font);
       });
     }
     if (sizeSelect) {
       sizeSelect.value = size;
       sizeSelect.addEventListener('change', function () {
-        var v = sizeSelect.value;
-        apply(body, theme, v, font);
-        save(theme, v, font);
+        size = sizeSelect.value;
+        apply(body, theme, size, font);
+        save(theme, size, font);
       });
     }
     if (fontSelect) {
       fontSelect.value = font;
       fontSelect.addEventListener('change', function () {
-        var v = fontSelect.value;
-        apply(body, theme, size, v);
-        save(theme, size, v);
+        font = fontSelect.value;
+        apply(body, theme, size, font);
+        save(theme, size, font);
       });
     }
   }

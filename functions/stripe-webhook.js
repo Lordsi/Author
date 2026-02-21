@@ -1,15 +1,17 @@
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
+import { sessionIncludesExpectedPrice } from './_lib/stripe-utils.js';
 
 export async function onRequestPost(context) {
   const { request, env } = context;
 
   const stripeSecretKey = env.STRIPE_SECRET_KEY;
   const webhookSecret = env.STRIPE_WEBHOOK_SECRET;
+  const priceId = env.STRIPE_PRICE_ID;
   const supabaseUrl = env.SUPABASE_URL;
   const supabaseServiceKey = env.SUPABASE_SERVICE_ROLE_KEY;
 
-  if (!stripeSecretKey || !webhookSecret || !supabaseUrl || !supabaseServiceKey) {
+  if (!stripeSecretKey || !webhookSecret || !priceId || !supabaseUrl || !supabaseServiceKey) {
     console.error('Missing env vars');
     return new Response('Server not configured', { status: 500 });
   }
@@ -31,7 +33,25 @@ export async function onRequestPost(context) {
     return new Response('OK');
   }
 
-  const session = stripeEvent.data.object;
+  const eventSession = stripeEvent.data.object;
+  let session;
+  try {
+    session = await stripe.checkout.sessions.retrieve(eventSession.id, {
+      expand: ['line_items.data.price'],
+    });
+  } catch (err) {
+    console.error('Could not load checkout session details:', err);
+    return new Response('OK');
+  }
+
+  if (session.payment_status !== 'paid') {
+    return new Response('OK');
+  }
+
+  if (!sessionIncludesExpectedPrice(session, priceId)) {
+    return new Response('OK');
+  }
+
   const email = session.customer_details?.email || session.customer_email;
 
   if (!email) {

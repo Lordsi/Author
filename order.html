@@ -52,15 +52,15 @@
       </div>
 
       <div style="width: 100%; max-width: 28rem;">
-        <form action="#" method="get" style="border: 1px solid rgba(224,224,224,0.1); border-radius: 0.5rem; background: var(--charcoal); padding: 1.5rem;">
+        <form id="order-form" action="/order-request" method="post" style="border: 1px solid rgba(224,224,224,0.1); border-radius: 0.5rem; background: var(--charcoal); padding: 1.5rem;">
           <label for="order-name" style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.25rem;">Full Name</label>
-          <input id="order-name" type="text" name="name" placeholder="Your full name" class="input-field" style="margin-bottom: 1rem;">
+          <input id="order-name" type="text" name="name" placeholder="Your full name" class="input-field" style="margin-bottom: 1rem;" required>
 
           <label for="order-email" style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.25rem;">Email</label>
-          <input id="order-email" type="email" name="email" placeholder="you@example.com" class="input-field" style="margin-bottom: 1rem;">
+          <input id="order-email" type="email" name="email" placeholder="you@example.com" class="input-field" style="margin-bottom: 1rem;" required>
 
           <label for="order-address" style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.25rem;">Shipping Address</label>
-          <textarea id="order-address" name="address" rows="3" placeholder="Street, city, state, postal code" class="input-field" style="margin-bottom: 1rem; resize: vertical;"></textarea>
+          <textarea id="order-address" name="address" rows="3" placeholder="Street, city, state, postal code" class="input-field" style="margin-bottom: 1rem; resize: vertical;" required></textarea>
 
           <label for="order-copies" style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.25rem;">Number of Copies</label>
           <select id="order-copies" name="copies" class="input-field" style="margin-bottom: 1.5rem;">
@@ -73,6 +73,7 @@
 
           <button type="submit" class="btn-primary" style="width: 100%;">Request to Buy</button>
         </form>
+        <div id="order-feedback" style="display: none; margin-top: 1rem; padding: 0.75rem; border-radius: 0.375rem; font-size: 0.875rem;"></div>
 
         <div style="margin-top: 1.5rem; padding: 1rem; border: 1px solid rgba(224,224,224,0.1); border-radius: 0.5rem; background: var(--gold-muted);">
           <p style="margin: 0; font-size: 0.875rem; color: rgba(224,224,224,0.9);">
@@ -97,6 +98,7 @@
     </div>
   </footer>
 
+  <script src="js/order.js"></script>
   <style>
     @media (min-width: 1024px) {
       main > section { flex-direction: row; align-items: flex-start; justify-content: center; }

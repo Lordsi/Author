@@ -30,11 +30,6 @@
         const base = (config.apiBaseUrl || '').replace(/\/$/, '');
         const res = await fetch((base ? base + '/' : '/') + 'create-checkout-session', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            successUrl: window.location.origin + '/create-account.html?session_id={CHECKOUT_SESSION_ID}',
-            cancelUrl: window.location.origin + '/purchase.html',
-          }),
         });
 
         const data = await res.json().catch(() => ({}));

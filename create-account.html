@@ -45,7 +45,7 @@
         <input id="create-email" type="email" readonly style="margin-bottom: 1rem; background: rgba(0,0,0,0.2); cursor: not-allowed;" class="input-field">
 
         <label for="create-password" style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.25rem;">Password</label>
-        <input id="create-password" type="password" name="password" placeholder="At least 6 characters" minlength="6" required class="input-field" style="margin-bottom: 1rem;">
+        <input id="create-password" type="password" name="password" placeholder="At least 8 characters" minlength="8" required class="input-field" style="margin-bottom: 1rem;">
 
         <button type="submit" class="btn-primary" style="width: 100%;">Create Account</button>
       </form>
@@ -71,6 +71,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
   <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
   <script src="js/create-account.js"></script>
   <style>
     @media (max-width: 767px) {
