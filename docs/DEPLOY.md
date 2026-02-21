@@ -1,6 +1,6 @@
 # Deploy Queens & Gods with Wrangler
 
-Deploy the site to Cloudflare Pages using Wrangler. Project: **soft-dream-8fb9**.
+Deploy the site to Cloudflare Pages as a **new project**. No link to any existing deployment.
 
 ## Prerequisites
 
@@ -13,7 +13,23 @@ Deploy the site to Cloudflare Pages using Wrangler. Project: **soft-dream-8fb9**
 
 ---
 
-## Step 1: Install dependencies
+## Step 1: Clear any previous project link (optional)
+
+If you previously deployed this folder and want a completely fresh project, clear Wrangler's cached project:
+
+```bash
+rm -rf node_modules/.cache/wrangler
+```
+
+On Windows (PowerShell):
+
+```powershell
+Remove-Item -Recurse -Force node_modules\.cache\wrangler -ErrorAction SilentlyContinue
+```
+
+---
+
+## Step 2: Install dependencies
 
 ```bash
 npm install
@@ -21,7 +37,7 @@ npm install
 
 ---
 
-## Step 2: Log in to Cloudflare
+## Step 3: Log in to Cloudflare
 
 ```bash
 npx wrangler login
@@ -31,30 +47,28 @@ This opens a browser to authenticate with your Cloudflare account.
 
 ---
 
-## Step 3: Create the Pages project (first time only)
+## Step 4: Create a new Pages project
 
-If the project **soft-dream-8fb9** does not exist yet:
+Create a **new** project (choose a name, e.g. `queens-gods` or any name you prefer):
 
 ```bash
-npx wrangler pages project create soft-dream-8fb9
+npx wrangler pages project create
 ```
 
 When prompted:
+- **Project name:** Enter a new name (e.g. `queens-gods`)
 - **Production branch:** `main` (or your default branch)
-- The project will be available at `https://soft-dream-8fb9.pages.dev` (or similar)
-
-If the project already exists, skip this step.
 
 ---
 
-## Step 4: Set environment variables
+## Step 5: Set environment variables
 
-Set secrets for Stripe and Supabase in the Cloudflare dashboard or via Wrangler.
+Set secrets in the Cloudflare dashboard or via Wrangler. Replace `YOUR_PROJECT_NAME` with the name you chose in Step 4.
 
 ### Option A: Cloudflare dashboard
 
 1. Go to [Workers & Pages](https://dash.cloudflare.com/?to=/:account/workers-and-pages)
-2. Open project **soft-dream-8fb9**
+2. Open your new project
 3. **Settings** → **Environment variables**
 4. Add these for **Production** (and Preview if needed):
 
@@ -69,50 +83,47 @@ Set secrets for Stripe and Supabase in the Cloudflare dashboard or via Wrangler.
 ### Option B: Wrangler CLI
 
 ```bash
-npx wrangler pages secret put STRIPE_SECRET_KEY --project-name=soft-dream-8fb9
-npx wrangler pages secret put STRIPE_PRICE_ID --project-name=soft-dream-8fb9
-npx wrangler pages secret put STRIPE_WEBHOOK_SECRET --project-name=soft-dream-8fb9
-npx wrangler pages secret put SUPABASE_URL --project-name=soft-dream-8fb9
-npx wrangler pages secret put SUPABASE_SERVICE_ROLE_KEY --project-name=soft-dream-8fb9
+npx wrangler pages secret put STRIPE_SECRET_KEY --project-name=YOUR_PROJECT_NAME
+npx wrangler pages secret put STRIPE_PRICE_ID --project-name=YOUR_PROJECT_NAME
+npx wrangler pages secret put STRIPE_WEBHOOK_SECRET --project-name=YOUR_PROJECT_NAME
+npx wrangler pages secret put SUPABASE_URL --project-name=YOUR_PROJECT_NAME
+npx wrangler pages secret put SUPABASE_SERVICE_ROLE_KEY --project-name=YOUR_PROJECT_NAME
 ```
-
-You'll be prompted to enter each value.
 
 ---
 
-## Step 5: Deploy
+## Step 6: Deploy
 
-From the project root:
+From the project root. Replace `YOUR_PROJECT_NAME` with the name you chose:
 
 ```bash
-npx wrangler pages deploy . --project-name=soft-dream-8fb9
+npx wrangler pages deploy . --project-name=YOUR_PROJECT_NAME
 ```
 
 This deploys:
 - Static files (HTML, CSS, JS, images)
 - Functions in `functions/` (`create-checkout-session`, `verify-session`, `stripe-webhook`)
 
+Your site will be at `https://YOUR_PROJECT_NAME.pages.dev`.
+
 ---
 
-## Step 6: Configure Stripe webhook
+## Step 7: Configure Stripe webhook
 
 In [Stripe Dashboard → Developers → Webhooks](https://dashboard.stripe.com/webhooks):
 
 1. **Add endpoint**
-2. **Endpoint URL:** `https://soft-dream-8fb9.pages.dev/stripe-webhook`  
-   (or `https://soft-dream-8fb9.praisemagangani.workers.dev/stripe-webhook` if using that custom domain)
+2. **Endpoint URL:** `https://YOUR_PROJECT_NAME.pages.dev/stripe-webhook`
 3. **Events:** `checkout.session.completed`
-4. Copy the **Signing secret** and add it as `STRIPE_WEBHOOK_SECRET` (Step 4).
+4. Copy the **Signing secret** and add it as `STRIPE_WEBHOOK_SECRET` (Step 5).
 
 ---
 
-## Step 7: Custom domain (optional)
-
-Your Pages deployment will be at `https://soft-dream-8fb9.pages.dev`. To use `https://soft-dream-8fb9.praisemagangani.workers.dev` instead:
+## Step 8: Custom domain (optional)
 
 1. In the Cloudflare dashboard, open your Pages project.
 2. **Custom domains** → **Set up a custom domain**
-3. Add the domain and follow Cloudflare’s DNS instructions.
+3. Add your domain and follow the DNS instructions.
 
 ---
 
@@ -122,7 +133,7 @@ Your Pages deployment will be at `https://soft-dream-8fb9.pages.dev`. To use `ht
 2. Run:
 
 ```bash
-npx wrangler pages dev . --project-name=soft-dream-8fb9
+npx wrangler pages dev . --project-name=YOUR_PROJECT_NAME
 ```
 
 3. Open the URL shown (e.g. `http://localhost:8788`).
@@ -135,11 +146,12 @@ npx wrangler pages dev . --project-name=soft-dream-8fb9
 
 ## Deployment checklist
 
+- [ ] Cleared wrangler cache (if deploying as new)
 - [ ] `npm install` completed
 - [ ] `wrangler login` successful
-- [ ] Pages project created (or already exists)
+- [ ] New Pages project created
 - [ ] Environment variables set (Stripe + Supabase)
-- [ ] `wrangler pages deploy . --project-name=soft-dream-8fb9` successful
+- [ ] `wrangler pages deploy . --project-name=YOUR_PROJECT_NAME` successful
 - [ ] Stripe webhook URL updated
 - [ ] `js/config.js` has correct Supabase URL and anon key (already configured)
 
@@ -149,6 +161,7 @@ npx wrangler pages dev . --project-name=soft-dream-8fb9
 
 | Issue | Solution |
 |-------|----------|
+| Deploys to old project | Clear `node_modules/.cache/wrangler` and create a new project |
 | `pages_build_output_dir` warning | Ensure `wrangler.toml` has `pages_build_output_dir = "."` |
 | Functions not found | Ensure `functions/` folder exists and deploy from project root |
 | Stripe errors | Check `STRIPE_SECRET_KEY` and `STRIPE_PRICE_ID` are set |
